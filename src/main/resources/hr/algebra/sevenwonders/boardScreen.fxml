@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" maxHeight="900.0" maxWidth="1440.0" minHeight="900.0" minWidth="1440.0" prefHeight="900.0" prefWidth="1440.0" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.sevenwonders.controller.HelloController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <Pane prefHeight="349.0" prefWidth="1005.0" />
+
+  <Label fx:id="welcomeText" />
+</VBox>
