@@ -28,6 +28,8 @@ public class ConfigurationReader {
 //    public static String getStringValueForKey(ConfigurationKey key) {
 //        return props.getProperty(key.getKey());
 //    }
+
+
 //
 //    public static Integer getIntegerValueForKey(ConfigurationKey key) {
 //        return Integer.parseInt(getStringValueForKey(key));

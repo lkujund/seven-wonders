@@ -5,7 +5,13 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.util.Duration;
 
 import java.time.LocalDateTime;
@@ -13,6 +19,60 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameController {
+
+    //Board elementi
+    @FXML
+    public AnchorPane apBoard;
+    @FXML
+    public FlowPane fpPlayerOneCards;
+    @FXML
+    public FlowPane fpPlayerTwoCards;
+
+
+    //Scoreboard elementi
+    @FXML
+    public AnchorPane apScoreboard;
+    @FXML
+    public Label lbP1Civil;
+    @FXML
+    public Label lbP1Science;
+    @FXML
+    public Label lbP1Military;
+    @FXML
+    public Label lbP1Trade;
+    @FXML
+    public Label lbP1Wonder;
+    @FXML
+    public Label lbP1Gold;
+    @FXML
+    public Label lbP1Total;
+    @FXML
+    public Label lbP2Civil;
+    @FXML
+    public Label lbP2Science;
+    @FXML
+    public Label lbP2Military;
+    @FXML
+    public Label lbP2Trade;
+    @FXML
+    public Label lbP2Wonder;
+    @FXML
+    public Label lbP2Gold;
+    @FXML
+    public Label lbP2Total;
+    @FXML
+    public Label lbWinner;
+
+
+    //Chat elementi
+    @FXML
+    public AnchorPane apChat;
+    @FXML
+    public TextField tfMessage;
+    @FXML
+    public Button btnSendMessage;
+    @FXML
+    public TextArea taChatBox;
 
 
     public void startNewGame()

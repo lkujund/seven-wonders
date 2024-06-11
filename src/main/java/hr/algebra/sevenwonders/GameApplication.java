@@ -7,15 +7,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class GameApplication extends Application {
+
+    private static Scene mainScene;
+
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("boardScreen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("boardScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1440, 900);
         stage.setTitle("Seven Wonders - Luka Kujundzic");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        mainScene = scene;
     }
 
     public static void main(String[] args) {
