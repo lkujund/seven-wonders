@@ -5,12 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="Initialized several models and basic logic">
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/Card.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/GameState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/ResourceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/UserRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/CardLoaderUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ChatUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/GameApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/GameApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/GameApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/ConfigurationReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/ConfigurationReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/CardType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/CardType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -41,13 +47,6 @@
     &quot;accountId&quot;: &quot;8bc5990b-6696-4fba-ab81-76fc8c9ea93b&quot;
   }
 }</component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -57,23 +56,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.GameApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.SevenWonders [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GameApplication.executor": "Run",
+    "Application.HelloApplication.executor": "Run",
+    "Maven.SevenWonders [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Luka/Desktop/TicTacToe-3RP1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.JavaFX",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -97,6 +99,8 @@
       <workItem from="1718025852010" duration="5913000" />
       <workItem from="1718050722451" duration="10000" />
       <workItem from="1718115054999" duration="3301000" />
+      <workItem from="1718195690455" duration="774000" />
+      <workItem from="1718198823642" duration="19008000" />
     </task>
     <task id="LOCAL−00001" summary="Initialized several models and basic logic">
       <option name="closed" value="true" />
