@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="Created util classes for more pedantic code">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameStateUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ReflectionUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/chat/RemoteChatService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/jndi/InitialDirContextCloseable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/XmlUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/GameApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/GameApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ReflectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ReflectionUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +25,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -47,26 +53,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.GameApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.SevenWonders [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luka/Desktop/TicTacToe&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GameApplication.executor": "Run",
+    "Application.HelloApplication.executor": "Run",
+    "Maven.SevenWonders [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "corretto-21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Luka/Downloads/TicTacToe-3RP1",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.JavaFX",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="GameApplication" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="hr.algebra.sevenwonders.GameApplication" />

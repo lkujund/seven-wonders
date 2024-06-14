@@ -86,6 +86,7 @@ public class GameController {
     private List<Label> p1Scores;
     private List<Label> p2Scores;
     public void startGame() {
+        //TODO: za multiplayer -> game starta samo server, provjeriti rolu i sakriti elemente od suprotnog igraca
         p1Scores = Arrays.asList(lbP1Civil, lbP1Science, lbP1Military, lbP1Trade, lbP1Resource, lbP1Gold, lbP1Total);
         p2Scores = Arrays.asList(lbP2Civil, lbP2Science, lbP2Military, lbP2Trade, lbP2Resource, lbP2Gold, lbP2Total);
         GameUtils.setupBoard(p1Scores, p2Scores, fpPlayerOneCards, fpPlayerTwoCards, lbWinner, GameController.this);
@@ -114,6 +115,10 @@ public class GameController {
 
 
     public void cardClicked(ActionEvent actionEvent) {
+
+        //TODO: za multiplayer -> slozit logiku da se sve salje u game state
+        // i zavisno o roli se popunjavaju elementi (client: popunjava dobivena p1 polja od servera, server: p2 polja od klijenta, default: sva polja bez TCP)
+
         Button button = (Button) actionEvent.getSource();
         if (button.getParent() == fpPlayerOneCards)
         {
@@ -166,6 +171,7 @@ public class GameController {
             GameUtils.concludeGame(p1Scores, lbP1Total, p2Scores, lbP2Total, lbWinner);
         } else
         {
+            //TODO: za multiplayer -> provjerit player rolu (client: slati serveru, server: slati klijentu, default: swapDecks)
             GameUtils.swapDecks(fpPlayerOneCards, fpPlayerTwoCards);
         }
     }

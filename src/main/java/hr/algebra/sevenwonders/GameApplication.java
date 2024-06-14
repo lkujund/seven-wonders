@@ -87,6 +87,7 @@ public class GameApplication extends Application {
     public static Scene getMainScene(){
         return mainScene;
     }
+
     public static void main(String[] args) {
         new Thread(Application::launch).start();
 

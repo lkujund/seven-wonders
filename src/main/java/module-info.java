@@ -1,7 +1,9 @@
 module hr.algebra.sevenwonders {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.rmi;
     requires java.naming;
+    requires java.xml;
 
 
     opens hr.algebra.sevenwonders to javafx.fxml;
