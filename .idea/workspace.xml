@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="First version of engine implemented">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/FileUtils.java" afterDir="false" />
+    <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="Created util classes for more pedantic code">
       <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameStateUtils.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ReflectionUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ChatUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ChatUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,26 +47,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.GameApplication.executor": "Run",
-    "Application.HelloApplication.executor": "Run",
-    "Maven.SevenWonders [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Luka/Desktop/TicTacToe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.JavaFX",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.GameApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.SevenWonders [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Luka/Desktop/TicTacToe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="GameApplication" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="hr.algebra.sevenwonders.GameApplication" />
@@ -106,7 +102,8 @@
       <workItem from="1718195690455" duration="774000" />
       <workItem from="1718198823642" duration="19008000" />
       <workItem from="1718219017141" duration="197000" />
-      <workItem from="1718288008886" duration="9627000" />
+      <workItem from="1718288008886" duration="9714000" />
+      <workItem from="1718391413202" duration="52000" />
     </task>
     <task id="LOCAL−00001" summary="Initialized several models and basic logic">
       <option name="closed" value="true" />
@@ -129,7 +126,14 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1718219125144</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="Created util classes for more pedantic code">
+      <option name="closed" value="true" />
+      <created>1718306138554</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1718306138554</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,7 +142,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initialized several models and basic logic" />
     <MESSAGE value="First version of engine implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="First version of engine implemented" />
+    <MESSAGE value="Created util classes for more pedantic code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created util classes for more pedantic code" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

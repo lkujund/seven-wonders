@@ -38,7 +38,7 @@
    </MenuBar>
    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
       <children>
-         <AnchorPane fx:id="apBoard" prefHeight="815.0" prefWidth="1141.0" style="-fx-background-color: gray; -fx-border-width: 2px; -fx-border-color: black;" HBox.hgrow="ALWAYS">
+         <AnchorPane fx:id="apBoard" prefHeight="815.0" prefWidth="1141.0" style="-fx-background-color: grey; -fx-border-width: 2px; -fx-border-color: black;" HBox.hgrow="ALWAYS">
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </HBox.margin>
@@ -227,7 +227,7 @@
                   </VBox.margin>
                   <children>
                      <TextField fx:id="tfMessage" layoutX="9.0" layoutY="306.0" prefHeight="32.0" prefWidth="371.0" />
-                     <Button fx:id="btnSendMessage" layoutX="383.0" layoutY="305.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" text="Send">
+                     <Button fx:id="btnSendMessage" layoutX="383.0" layoutY="305.0" mnemonicParsing="false" onAction="#sendChatMessage" prefHeight="32.0" prefWidth="104.0" text="Send">
                         <font>
                            <Font name="Bookman Old Style" size="17.0" />
                         </font>
