@@ -18,6 +18,8 @@ public class GameUtils {
     public static void setupBoard(List<Label> p1Scores, List<Label> p2Scores, FlowPane fpPlayerOneCards, FlowPane fpPlayerTwoCards, Label lbWinner, GameController gameController) {
         fpPlayerOneCards.getChildren().clear();
         fpPlayerTwoCards.getChildren().clear();
+        gameController.fpPlayerOnePlayedCard.getChildren().clear();
+        gameController.fpPlayerTwoPlayedCard.getChildren().clear();
         lbWinner.setText("");
         p1Scores.forEach(p -> p.setText("0"));
         p2Scores.forEach(p -> p.setText("0"));

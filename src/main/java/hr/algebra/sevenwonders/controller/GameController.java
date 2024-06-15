@@ -1,9 +1,14 @@
 package hr.algebra.sevenwonders.controller;
 
 import hr.algebra.sevenwonders.model.Card;
+import hr.algebra.sevenwonders.model.GameMove;
+import hr.algebra.sevenwonders.model.GameState;
+import hr.algebra.sevenwonders.thread.GetLastGameMoveThread;
 import hr.algebra.sevenwonders.utils.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -24,6 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 public class GameController {
 
@@ -38,6 +44,8 @@ public class GameController {
     public FlowPane fpPlayerOnePlayedCard;
     @FXML
     public FlowPane fpPlayerTwoPlayedCard;
+    @FXML
+    private Label theLastGameMoveLabel;
 
     //Scoreboard elementi
     @FXML
@@ -85,26 +93,40 @@ public class GameController {
     public TextArea taChatBox;
 
 
-    private List<Label> p1Scores;
-    private List<Label> p2Scores;
+    public List<Label> p1Scores;
+    public List<Label> p2Scores;
 
     public void startGame() {
+
+
+        GetLastGameMoveThread getLastGameMoveThread
+                = new GetLastGameMoveThread(theLastGameMoveLabel);
+        Thread starterThread = new Thread(getLastGameMoveThread);
+        starterThread.start();
         //TODO: za multiplayer -> game starta samo server, provjeriti rolu i sakriti elemente od suprotnog igraca
+        XmlUtils.createNewReplayFile();
         p1Scores = Arrays.asList(lbP1Civil, lbP1Science, lbP1Military, lbP1Trade, lbP1Resource, lbP1Gold, lbP1Total);
         p2Scores = Arrays.asList(lbP2Civil, lbP2Science, lbP2Military, lbP2Trade, lbP2Resource, lbP2Gold, lbP2Total);
         GameUtils.setupBoard(p1Scores, p2Scores, fpPlayerOneCards, fpPlayerTwoCards, lbWinner, GameController.this);
     }
 
     public void loadGame() {
-//        FileUtils.loadGame(...);
+        GameState gameState = FileUtils.loadGame();
+        BoardRenderUtils.drawBoardFromGameState(gameState, GameController.this);
+        GetLastGameMoveThread getLastGameMoveThread
+                = new GetLastGameMoveThread(theLastGameMoveLabel);
+        Thread starterThread = new Thread(getLastGameMoveThread);
+        starterThread.start();
     }
     public void saveGame() {
-//        FileUtils.saveGame(...);
+        FileUtils.saveGame(GameStateUtils.createGameStateSnapshot(GameController.this));
     }
 
 
     public void replayGame() {
-        GameStateUtils.replayGame();
+
+        GameStateUtils.replayGame(GameController.this);
+
     }
 
     public void exportDocumentation() {
@@ -123,6 +145,7 @@ public class GameController {
         // i zavisno o roli se popunjavaju elementi (client: popunjava dobivena p1 polja od servera, server: p2 polja od klijenta, default: sva polja bez TCP)
 
         Button button = (Button) mouseEvent.getSource();
+        GameMove gameMove = new GameMove();
         if (button.getParent() == fpPlayerOneCards)
         {
             if (mouseEvent.getButton() == MouseButton.PRIMARY){
@@ -130,15 +153,36 @@ public class GameController {
             } else if (mouseEvent.getButton() == MouseButton.SECONDARY){
                 GameUtils.discard(button, fpPlayerOneCards, fpPlayerOnePlayedCard, lbP1Gold);
             }
+            gameMove.setPlayerName("P1");
+            gameMove.setPlayerHandState((fpPlayerOneCards
+                    .getChildren())
+                    .stream()
+                    .map(x -> (Button) x)
+                    .map(b -> (Card) b.getUserData())
+                    .toArray(Card[]::new));
         }
-        if (button.getParent() == fpPlayerTwoCards)
+        else if (button.getParent() == fpPlayerTwoCards)
         {
             if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                 GameUtils.playCard(button, fpPlayerTwoCards, fpPlayerTwoPlayedCard, lbP2Gold);
             } else if (mouseEvent.getButton() == MouseButton.SECONDARY){
                 GameUtils.discard(button, fpPlayerTwoCards, fpPlayerTwoPlayedCard, lbP2Gold);
             }
+            gameMove.setPlayerName("P2");
+            gameMove.setPlayerHandState((fpPlayerTwoCards
+                    .getChildren())
+                    .stream()
+                    .map(x -> (Button) x)
+                    .map(b -> (Card) b.getUserData())
+                    .toArray(Card[]::new));
         }
+        gameMove.setCard((Card) button.getUserData());
+        gameMove.setDateTime(LocalDateTime.now());
+
+        List<Label> scores = Stream.concat(p1Scores.stream(), p2Scores.stream()).toList();
+        gameMove.setScoreBoardState(scores.stream().map(Label::getText).toArray(String[]::new));
+        GameMoveUtils.saveGameMove(gameMove);
+        XmlUtils.saveGameMove(gameMove);
         checkPlayedCards();
     }
 
@@ -179,6 +223,13 @@ public class GameController {
     private void checkRemainingCards() {
         if (fpPlayerOneCards.getChildren().isEmpty() && fpPlayerTwoCards.getChildren().isEmpty())
         {
+            List<Label> scores = Stream.concat(p1Scores.stream(), p2Scores.stream()).toList();
+            GameMove lastGameMove = new GameMove(){{
+                setScoreBoardState(scores.stream().map(Label::getText).toArray(String[]::new));
+                setDateTime(LocalDateTime.now());
+            }};
+            XmlUtils.saveGameMove(lastGameMove);
+
             GameUtils.concludeGame(p1Scores, lbP1Total, p2Scores, lbP2Total, lbWinner);
         } else
         {

@@ -52,4 +52,5 @@ public enum Card {
         this.cost = cost;
         this.score = score;
     }
+
 }

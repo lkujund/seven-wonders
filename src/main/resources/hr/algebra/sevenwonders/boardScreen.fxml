@@ -19,7 +19,7 @@
   <padding>
     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
   </padding>
-   <MenuBar nodeOrientation="LEFT_TO_RIGHT">
+   <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="1166.0">
      <menus>
        <Menu mnemonicParsing="false" text="Game">
          <items>
@@ -48,6 +48,7 @@
                <FlowPane fx:id="fpPlayerOnePlayedCard" alignment="CENTER" layoutX="387.0" layoutY="441.0" prefHeight="160.0" prefWidth="133.0" style="-fx-border-color: navy; -fx-border-width: 2px;" />
                <FlowPane fx:id="fpPlayerTwoPlayedCard" alignment="CENTER" layoutX="386.0" layoutY="207.0" prefHeight="160.0" prefWidth="133.0" style="-fx-border-color: navy; -fx-border-width: 2px;" />
                <Line endX="510.66668701171875" endY="250.0" layoutX="363.0" layoutY="151.0" startX="-350.6666564941406" startY="250.0" strokeWidth="5.0" />
+               <Label fx:id="theLastGameMoveLabel" layoutX="10.0" layoutY="379.0" prefHeight="17.0" prefWidth="866.0" />
             </children>
          </AnchorPane>
          <VBox prefHeight="815.0" prefWidth="759.0">

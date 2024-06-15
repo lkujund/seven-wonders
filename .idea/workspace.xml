@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="Created util classes for more pedantic code">
+    <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="Fixed reflection, added discard and cost management">
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/GameMove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GetLastGameMoveThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/SaveNewGameMoveThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/BoardRenderUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameMoveUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/CardLoaderUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/CardLoaderUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/FileUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameStateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameStateUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ReflectionUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ReflectionUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/XmlUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/XmlUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +30,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -108,6 +118,9 @@
       <workItem from="1718219017141" duration="197000" />
       <workItem from="1718288008886" duration="9714000" />
       <workItem from="1718391413202" duration="52000" />
+      <workItem from="1718444960235" duration="4694000" />
+      <workItem from="1718452710860" duration="5270000" />
+      <workItem from="1718458290787" duration="11463000" />
     </task>
     <task id="LOCAL−00001" summary="Initialized several models and basic logic">
       <option name="closed" value="true" />
@@ -137,7 +150,14 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1718306138554</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="Fixed reflection, added discard and cost management">
+      <option name="closed" value="true" />
+      <created>1718444134584</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1718444134584</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,7 +167,34 @@
     <MESSAGE value="Initialized several models and basic logic" />
     <MESSAGE value="First version of engine implemented" />
     <MESSAGE value="Created util classes for more pedantic code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created util classes for more pedantic code" />
+    <MESSAGE value="Fixed reflection, added discard and cost management" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed reflection, added discard and cost management" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java</url>
+          <line>35</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

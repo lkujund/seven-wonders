@@ -1,6 +1,7 @@
 package hr.algebra.sevenwonders.utils;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -74,6 +75,20 @@ public class ReflectionUtils {
 
                     documentationHtml += method.getName();
                     String parameters = Arrays.stream(method.getParameterTypes()).map(Class::getName).collect(Collectors.joining(", "));
+                    documentationHtml +="(" + parameters + ")</h3>\n";
+                }
+
+                Constructor[] classConstructors = deserializedClass.getDeclaredConstructors();
+                documentationHtml += "\t\t<h2>Constructors</h2>\n";
+                for(Constructor constructor : classConstructors) {
+                    documentationHtml += "\t\t\t<h3>";
+
+                    int modifiers = constructor.getModifiers();
+                    appendModifiers(modifiers, documentationHtml);
+
+
+                    documentationHtml += constructor.getName();
+                    String parameters = Arrays.stream(constructor.getParameterTypes()).map(Class::getName).collect(Collectors.joining(", "));
                     documentationHtml +="(" + parameters + ")</h3>\n";
                 }
             }
