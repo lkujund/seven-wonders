@@ -2,6 +2,7 @@ package hr.algebra.sevenwonders.utils;
 
 import hr.algebra.sevenwonders.controller.GameController;
 import hr.algebra.sevenwonders.model.Card;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,6 +11,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameUtils {
 
@@ -19,26 +21,40 @@ public class GameUtils {
         lbWinner.setText("");
         p1Scores.forEach(p -> p.setText("0"));
         p2Scores.forEach(p -> p.setText("0"));
+        gameController.lbP1Gold.setText("3");
+        gameController.lbP2Gold.setText("3");
 
         List<Button> cards = CardLoaderUtils.loadFourteenCards();
         List<Button> p1Cards = cards.subList(0,7);
         List<Button> p2Cards = cards.subList(7,14);
 
         for (Button card : p1Cards){
-            card.setOnAction(gameController::cardClicked);
+            card.setOnMouseClicked(gameController::cardClicked);
             fpPlayerOneCards.getChildren().add(card);
         }
         for (Button card : p2Cards){
-            card.setOnAction(gameController::cardClicked);
+            card.setOnMouseClicked(gameController::cardClicked);
             fpPlayerTwoCards.getChildren().add(card);
         }
     }
 
-    public static void playCard(Button button, FlowPane fpPlayerCards, FlowPane fpPlayedCard) {
-        if (fpPlayedCard.getChildren().isEmpty())
-        {
-            fpPlayerCards.getChildren().remove(button);
-            fpPlayedCard.getChildren().add(button);
+    public static void playCard(Button button, FlowPane fpPlayerCards, FlowPane fpPlayedCard, Label playerGold) {
+        if (hasGoldToPlayCard(button, playerGold)) {
+            if (fpPlayedCard.getChildren().isEmpty()) {
+                fpPlayerCards.getChildren().remove(button);
+                fpPlayedCard.getChildren().add(button);
+            }
+        }
+    }
+
+    private static boolean hasGoldToPlayCard(Button button, Label playerGold) {
+        int currGold = Integer.parseInt(playerGold.getText());
+        int cardCost = ((Card) button.getUserData()).cost;
+        if (currGold >= cardCost){
+            playerGold.setText(String.valueOf(currGold - cardCost));
+            return true;
+        }else {
+            return false;
         }
     }
 
@@ -66,32 +82,46 @@ public class GameUtils {
         Card card = (Card) cardButton.getUserData();
         switch (card.cardType){
             case BLUE_CIVIL -> setScore(
-                    player == "P1" ? gameController.lbP1Civil : gameController.lbP2Civil,
+                    Objects.equals(player, "P1") ? gameController.lbP1Civil : gameController.lbP2Civil,
                     card.score);
 
             case GREEN_SCIENCE -> setScore(
-                    player == "P1" ? gameController.lbP1Science : gameController.lbP2Science,
+                    Objects.equals(player, "P1") ? gameController.lbP1Science : gameController.lbP2Science,
                     card.score);
 
             case RED_MILITARY -> setScore(
-                    player == "P1" ? gameController.lbP1Military : gameController.lbP2Military,
+                    Objects.equals(player, "P1") ? gameController.lbP1Military : gameController.lbP2Military,
                     card.score);
 
             case GREY_TRADE -> setScore(
-                    player == "P1" ? gameController.lbP1Trade : gameController.lbP2Trade,
+                    Objects.equals(player, "P1") ? gameController.lbP1Trade : gameController.lbP2Trade,
                     card.score);
 
             case BROWN_RESOURCE -> setScore(
-                    player == "P1" ? gameController.lbP1Resource : gameController.lbP2Resource,
+                    Objects.equals(player, "P1") ? gameController.lbP1Resource : gameController.lbP2Resource,
                     card.score);
 
             case YELLOW_GOLD -> setScore(
-                    player == "P1" ? gameController.lbP1Gold : gameController.lbP2Gold,
+                    Objects.equals(player, "P1") ? gameController.lbP1Gold : gameController.lbP2Gold,
                     card.score);
         }
     }
     private static void setScore(Label scoreLabel, int score) {
         int currResult = Integer.parseInt(scoreLabel.getText());
         scoreLabel.setText(String.valueOf(currResult + score));
+    }
+
+    public static void discard(Button button, FlowPane fpPlayerCards, FlowPane fpPlayedCard, Label lbGold) {
+        if (fpPlayedCard.getChildren().isEmpty()) {
+            fpPlayerCards.getChildren().remove(button);
+            Button discardCardButton = new Button(){{
+                setText("DISCARD");
+                setStyle("-fx-background-color: black;-fx-font-family: Bookman Old Style;-fx-font-size: 10pt;");
+                setPrefSize(110, 130);
+                FlowPane.setMargin(this,  new Insets(5));
+                setUserData(Card.DISCARD_CARD);
+            }};
+            fpPlayedCard.getChildren().add(discardCardButton);
+        }
     }
 }

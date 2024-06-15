@@ -7,10 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class CardLoaderUtils {
 
@@ -23,11 +20,13 @@ public class CardLoaderUtils {
 
     public static List<Button> loadAllCards(){
         List<Button> cards = new ArrayList<>();
-        for (Card card : Card.values())
+        Card[] playableCards = Arrays.stream(Card.values()).filter(card -> card != Card.DISCARD_CARD).toArray(Card[]::new);
+        for (Card card : playableCards)
         {
             cards.add(new Button(){{
                 setText(String.format("%s\nCOST: %d\nPOINTS: %d", card.name, card.cost, card.score));
                 setStyle(String.format(
+                        "-fx-wrap-text: true;" +
                         "-fx-background-color: %s;" +
                         "-fx-font-family: Bookman Old Style;" +
                                 "-fx-font-size: 10pt;", card.cardType.hexColor));

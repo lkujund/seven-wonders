@@ -85,7 +85,11 @@ public class ReflectionUtils {
                     """;
 
             Path documentationFilePath = Path.of("files/documentation.html");
-
+            Path filesFolderPath = documentationFilePath.toAbsolutePath().getParent();
+            if (!Files.exists(filesFolderPath))
+            {
+                Files.createDirectories(filesFolderPath.toAbsolutePath());
+            }
             String fullHtml = documentationHtml + footerHtml;
 
             Files.write(documentationFilePath, fullHtml.getBytes());

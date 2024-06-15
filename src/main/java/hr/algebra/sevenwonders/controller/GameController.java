@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.util.Duration;
@@ -85,6 +87,7 @@ public class GameController {
 
     private List<Label> p1Scores;
     private List<Label> p2Scores;
+
     public void startGame() {
         //TODO: za multiplayer -> game starta samo server, provjeriti rolu i sakriti elemente od suprotnog igraca
         p1Scores = Arrays.asList(lbP1Civil, lbP1Science, lbP1Military, lbP1Trade, lbP1Resource, lbP1Gold, lbP1Total);
@@ -114,19 +117,27 @@ public class GameController {
     }
 
 
-    public void cardClicked(ActionEvent actionEvent) {
+    public void cardClicked(MouseEvent mouseEvent) {
 
         //TODO: za multiplayer -> slozit logiku da se sve salje u game state
         // i zavisno o roli se popunjavaju elementi (client: popunjava dobivena p1 polja od servera, server: p2 polja od klijenta, default: sva polja bez TCP)
 
-        Button button = (Button) actionEvent.getSource();
+        Button button = (Button) mouseEvent.getSource();
         if (button.getParent() == fpPlayerOneCards)
         {
-            GameUtils.playCard(button, fpPlayerOneCards, fpPlayerOnePlayedCard);
+            if (mouseEvent.getButton() == MouseButton.PRIMARY){
+                GameUtils.playCard(button, fpPlayerOneCards, fpPlayerOnePlayedCard, lbP1Gold);
+            } else if (mouseEvent.getButton() == MouseButton.SECONDARY){
+                GameUtils.discard(button, fpPlayerOneCards, fpPlayerOnePlayedCard, lbP1Gold);
+            }
         }
         if (button.getParent() == fpPlayerTwoCards)
         {
-            GameUtils.playCard(button, fpPlayerTwoCards, fpPlayerTwoPlayedCard);
+            if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+                GameUtils.playCard(button, fpPlayerTwoCards, fpPlayerTwoPlayedCard, lbP2Gold);
+            } else if (mouseEvent.getButton() == MouseButton.SECONDARY){
+                GameUtils.discard(button, fpPlayerTwoCards, fpPlayerTwoPlayedCard, lbP2Gold);
+            }
         }
         checkPlayedCards();
     }
