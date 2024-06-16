@@ -1,7 +1,10 @@
 package hr.algebra.sevenwonders.utils;
 
+import hr.algebra.sevenwonders.GameApplication;
 import hr.algebra.sevenwonders.controller.GameController;
 import hr.algebra.sevenwonders.model.Card;
+import hr.algebra.sevenwonders.model.GameState;
+import hr.algebra.sevenwonders.model.UserRole;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

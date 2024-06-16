@@ -4,18 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="Implemented documentation export using reflection, added placeholders">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/chat/RemoteChatServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/exception/InvalidConfigurationKeyNameException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/jndi/FilesUsage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ConfigurationReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/RemoteChatUtils.java" afterDir="false" />
+    <list default="true" id="da28a669-4c6c-47a2-8b5b-d11f3aabb0a2" name="Changes" comment="Chat and networking in progress">
+      <change afterPath="$PROJECT_DIR$/lib/fscontext-4.6-b01.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/ChatThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/NetworkingUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/GameApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/GameApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/chat/RemoteChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/chat/service/RemoteChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/chat/RemoteChatServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/chat/service/RemoteChatServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/ConfigurationKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/ConfigurationKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/ConfigurationReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/ConfigurationReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/UserRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/model/UserRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/BoardRenderUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/BoardRenderUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ChatUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ChatUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/XmlUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/XmlUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ConfigurationReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/ConfigurationReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameStateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameStateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/GameUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/RemoteChatUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/RmiRemoteChatUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hr/algebra/sevenwonders/boardScreen.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,17 +77,25 @@
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "corretto-21",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Luka/Downloads/TicTacToe-3RP1",
+    "last_opened_file_path": "C:/Users/Luka/IdeaProjects/SevenWonders/lib/fscontext-4.6-b01.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.57586205",
     "settings.editor.selected.configurable": "preferences.JavaFX",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.SERVER">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Luka\IdeaProjects\SevenWonders\lib" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.CLIENT">
     <configuration name="CLIENT" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="hr.algebra.sevenwonders.GameApplication" />
       <module name="SevenWonders" />
@@ -99,6 +115,7 @@
     <configuration name="Singleplayer" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="hr.algebra.sevenwonders.GameApplication" />
       <module name="SevenWonders" />
+      <option name="PROGRAM_PARAMETERS" value="SINGLEPLAYER" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -140,7 +157,7 @@
       <workItem from="1718444960235" duration="4694000" />
       <workItem from="1718452710860" duration="5270000" />
       <workItem from="1718458290787" duration="11463000" />
-      <workItem from="1718523509807" duration="5645000" />
+      <workItem from="1718523509807" duration="20896000" />
     </task>
     <task id="LOCAL−00001" summary="Initialized several models and basic logic">
       <option name="closed" value="true" />
@@ -177,7 +194,14 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1718444134584</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary="Chat and networking in progress">
+      <option name="closed" value="true" />
+      <created>1718529686355</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1718529686355</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,7 +212,8 @@
     <MESSAGE value="First version of engine implemented" />
     <MESSAGE value="Created util classes for more pedantic code" />
     <MESSAGE value="Fixed reflection, added discard and cost management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed reflection, added discard and cost management" />
+    <MESSAGE value="Chat and networking in progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chat and networking in progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -212,6 +237,16 @@
           <url>file://$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/thread/GameMoveThread.java</url>
           <line>38</line>
           <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/RmiRemoteChatUtils.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/hr/algebra/sevenwonders/utils/RmiRemoteChatUtils.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

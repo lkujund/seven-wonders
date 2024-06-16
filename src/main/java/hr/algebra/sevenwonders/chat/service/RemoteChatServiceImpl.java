@@ -1,4 +1,4 @@
-package hr.algebra.sevenwonders.chat;
+package hr.algebra.sevenwonders.chat.service;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;

@@ -12,4 +12,5 @@ module hr.algebra.sevenwonders {
     opens hr.algebra.sevenwonders.model to javafx.fxml;
     exports hr.algebra.sevenwonders.controller;
     opens hr.algebra.sevenwonders.controller to javafx.fxml;
+    exports hr.algebra.sevenwonders.chat.service to java.rmi;
 }

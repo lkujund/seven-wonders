@@ -1,5 +1,5 @@
 package hr.algebra.sevenwonders.model;
 
 public enum UserRole {
-    SERVER, CLIENT
+    SERVER, CLIENT, SINGLEPLAYER
 }

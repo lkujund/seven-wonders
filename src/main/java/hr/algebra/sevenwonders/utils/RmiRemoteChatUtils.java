@@ -1,7 +1,7 @@
 package hr.algebra.sevenwonders.utils;
 
-import hr.algebra.sevenwonders.chat.RemoteChatService;
-import hr.algebra.sevenwonders.chat.RemoteChatServiceImpl;
+import hr.algebra.sevenwonders.chat.service.RemoteChatService;
+import hr.algebra.sevenwonders.chat.service.RemoteChatServiceImpl;
 import hr.algebra.sevenwonders.model.ConfigurationKey;
 
 import java.rmi.NotBoundException;
@@ -10,7 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RemoteChatUtils {
+public class RmiRemoteChatUtils {
     public static RemoteChatService startRmiRemoteChatServer() {
         RemoteChatService remoteChatService = new RemoteChatServiceImpl();
         Integer rmiPort = ConfigurationReader.readIntegerConfigurationValue(ConfigurationKey.RMI_PORT);

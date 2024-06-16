@@ -19,7 +19,7 @@ public class ConfigurationReader {
     static {
         environment = new Hashtable<>();
         environment.put(Context.INITIAL_CONTEXT_FACTORY,"com.sun.jndi.fscontext.RefFSContextFactory");
-        environment.put(Context.PROVIDER_URL,"file:D:/tic-tac-toe/conf");
+        environment.put(Context.PROVIDER_URL,"file:D:/sevenWonders/conf");
     }
 
     public static Integer readIntegerConfigurationValue(ConfigurationKey key) {

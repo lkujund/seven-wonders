@@ -23,10 +23,10 @@
      <menus>
        <Menu mnemonicParsing="false" text="Game">
          <items>
-           <MenuItem mnemonicParsing="false" onAction="#startGame" text="Start Game" />
-               <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
-               <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
-               <MenuItem mnemonicParsing="false" onAction="#replayGame" text="Replay Game" />
+           <MenuItem fx:id="miStartGame" mnemonicParsing="false" onAction="#startGame" text="Start Game" />
+               <MenuItem fx:id="miLoadGame" mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
+               <MenuItem fx:id="miSaveGame" mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
+               <MenuItem fx:id="miReplayGame" mnemonicParsing="false" onAction="#replayGame" text="Replay Game" />
          </items>
        </Menu>
        <Menu mnemonicParsing="false" text="Settings">

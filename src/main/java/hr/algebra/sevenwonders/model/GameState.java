@@ -14,6 +14,7 @@ public class GameState implements Serializable {
     private Card playerOnePlayedCard;
     private Card[] playerTwoHand;
     private Card playerTwoPlayedCard;
+    private String winnerString;
 
 
 //Umjesto anchorpanea poslat array stringova vrijednosti labelova i tocnim redom ih slat i citat
@@ -22,12 +23,22 @@ public class GameState implements Serializable {
     public GameState(){
 
     }
-    public GameState(Card[] playerOneHand, Card playerOnePlayedCard, Card[] playerTwoHand, Card playerTwoPlayedCard, String[] scoreboardState ) {
+
+    public String getWinnerString() {
+        return winnerString;
+    }
+
+    public void setWinnerString(String winnerString) {
+        this.winnerString = winnerString;
+    }
+
+    public GameState(Card[] playerOneHand, Card playerOnePlayedCard, Card[] playerTwoHand, Card playerTwoPlayedCard, String[] scoreboardState, String winnerString ) {
         this.playerOneHand = playerOneHand;
         this.playerOnePlayedCard = playerOnePlayedCard;
         this.playerTwoHand = playerTwoHand;
         this.playerTwoPlayedCard = playerTwoPlayedCard;
         this.scoreboardState = scoreboardState;
+        this.winnerString = winnerString;
     }
 
     public Card[] getPlayerOneHand() {

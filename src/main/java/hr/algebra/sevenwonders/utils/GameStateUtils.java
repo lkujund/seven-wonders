@@ -134,6 +134,7 @@ public class GameStateUtils {
         gameState.setPlayerOnePlayedCard(getPlayerPlayedCard(gameController.fpPlayerOnePlayedCard));
         gameState.setPlayerTwoHand(getPlayerHand(gameController.fpPlayerTwoCards));
         gameState.setPlayerTwoPlayedCard(getPlayerPlayedCard(gameController.fpPlayerTwoPlayedCard));
+        gameState.setWinnerString(gameController.lbWinner.getText());
 
         return gameState;
     }

@@ -1,38 +1,26 @@
 package hr.algebra.sevenwonders.controller;
 
 import hr.algebra.sevenwonders.GameApplication;
-import hr.algebra.sevenwonders.chat.RemoteChatService;
+import hr.algebra.sevenwonders.chat.service.RemoteChatService;
 import hr.algebra.sevenwonders.model.Card;
 import hr.algebra.sevenwonders.model.GameMove;
 import hr.algebra.sevenwonders.model.GameState;
 import hr.algebra.sevenwonders.model.UserRole;
+import hr.algebra.sevenwonders.thread.ChatThread;
 import hr.algebra.sevenwonders.thread.GetLastGameMoveThread;
 import hr.algebra.sevenwonders.utils.*;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.util.Duration;
-import javafx.util.Pair;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class GameController {
@@ -98,8 +86,20 @@ public class GameController {
     @FXML
     public TextArea taChatBox;
 
+    //meni elementi
+    @FXML
+    public MenuItem miStartGame;
+    @FXML
+    public MenuItem miLoadGame;
+    @FXML
+    public MenuItem miSaveGame;
+    @FXML
+    public MenuItem miReplayGame;
+
 
     private RemoteChatService remoteChatService;
+
+    public RemoteChatService getChatServiceInstance(){ return  remoteChatService; }
 
     public List<Label> p1Scores;
     public List<Label> p2Scores;
@@ -110,32 +110,67 @@ public class GameController {
 
 
     public void initialize(){
-        if (GameApplication.activeUserRole == UserRole.SERVER) {
-            remoteChatService = RemoteChatUtils.startRmiRemoteChatServer();
-        } else if (GameApplication.activeUserRole == UserRole.CLIENT) {
-            remoteChatService = RemoteChatUtils.startRmiRemoteChatClient();
-        }
-
+        if (GameApplication.activeUserRole == UserRole.CLIENT || GameApplication.activeUserRole == UserRole.SERVER){
+            ChatThread chatThread
+                    = new ChatThread();
+            Thread thread = new Thread(chatThread);
+            thread.start();
+            if (GameApplication.activeUserRole == UserRole.CLIENT){
+                remoteChatService = RmiRemoteChatUtils.startRmiRemoteChatClient();
+                disableFeaturesForClient();
+            } else {
+                remoteChatService = RmiRemoteChatUtils.startRmiRemoteChatServer();
+                disableFeaturesForServer();
+            }
         tfMessage.setOnKeyPressed(event -> {
                     if (event.getCode().equals(KeyCode.ENTER)) {
                         sendChatMessage();
                     }
                 }
         );
+        } else {
+            disableChatForSinglePlayer();
+        }
+    }
+
+    private void disableChatForSinglePlayer() {
+        taChatBox.setDisable(true);
+        tfMessage.setDisable(true);
+        btnSendMessage.setDisable(true);
+    }
+
+    private void disableFeaturesForServer() {
+        miLoadGame.setDisable(true);
+        miSaveGame.setDisable(true);
+        miReplayGame.setDisable(true);
+        fpPlayerTwoCards.setVisible(false);
+
+    }
+
+    private void disableFeaturesForClient() {
+        miStartGame.setDisable(true);
+        miLoadGame.setDisable(true);
+        miSaveGame.setDisable(true);
+        miReplayGame.setDisable(true);
+        fpPlayerOneCards.setVisible(false);
     }
 
     public void startGame() {
 
-
-        GetLastGameMoveThread getLastGameMoveThread
-                = new GetLastGameMoveThread(theLastGameMoveLabel);
-        Thread starterThread = new Thread(getLastGameMoveThread);
-        starterThread.start();
-        //TODO: za multiplayer -> game starta samo server, provjeriti rolu i sakriti elemente od suprotnog igraca
-        XmlUtils.createNewReplayFile();
+        if (GameApplication.activeUserRole == UserRole.SINGLEPLAYER){
+            GetLastGameMoveThread getLastGameMoveThread
+                    = new GetLastGameMoveThread(theLastGameMoveLabel);
+            Thread starterThread = new Thread(getLastGameMoveThread);
+            starterThread.start();
+            XmlUtils.createNewReplayFile();
+        }
         p1Scores = Arrays.asList(lbP1Civil, lbP1Science, lbP1Military, lbP1Trade, lbP1Resource, lbP1Gold, lbP1Total);
         p2Scores = Arrays.asList(lbP2Civil, lbP2Science, lbP2Military, lbP2Trade, lbP2Resource, lbP2Gold, lbP2Total);
         GameUtils.setupBoard(p1Scores, p2Scores, fpPlayerOneCards, fpPlayerTwoCards, lbWinner, GameController.this);
+        if (GameApplication.activeUserRole == UserRole.SERVER){
+            GameState gameStateSnapshot = GameStateUtils.createGameStateSnapshot(GameController.this);
+            NetworkingUtils.sendGameStateToClient(gameStateSnapshot);
+        }
     }
 
     public void loadGame() {
@@ -163,17 +198,16 @@ public class GameController {
 
 
     public void sendChatMessage() {
-        ChatUtils.sendMessage(tfMessage, taChatBox, remoteChatService);
+        ChatUtils.sendChatMessage(tfMessage, remoteChatService, taChatBox);
     }
 
 
     public void cardClicked(MouseEvent mouseEvent) {
 
-        //TODO: za multiplayer -> slozit logiku da se sve salje u game state
-        // i zavisno o roli se popunjavaju elementi (client: popunjava dobivena p1 polja od servera, server: p2 polja od klijenta, default: sva polja bez TCP)
-
         Button button = (Button) mouseEvent.getSource();
         GameMove gameMove = new GameMove();
+
+
         if (button.getParent() == fpPlayerOneCards)
         {
             if (mouseEvent.getButton() == MouseButton.PRIMARY){
@@ -181,13 +215,15 @@ public class GameController {
             } else if (mouseEvent.getButton() == MouseButton.SECONDARY){
                 GameUtils.discard(button, fpPlayerOneCards, fpPlayerOnePlayedCard, lbP1Gold);
             }
-            gameMove.setPlayerName("P1");
-            gameMove.setPlayerHandState((fpPlayerOneCards
-                    .getChildren())
-                    .stream()
-                    .map(x -> (Button) x)
-                    .map(b -> (Card) b.getUserData())
-                    .toArray(Card[]::new));
+            if (GameApplication.activeUserRole == UserRole.SINGLEPLAYER){
+                gameMove.setPlayerName("P1");
+                gameMove.setPlayerHandState((fpPlayerOneCards
+                        .getChildren())
+                        .stream()
+                        .map(x -> (Button) x)
+                        .map(b -> (Card) b.getUserData())
+                        .toArray(Card[]::new));
+            }
         }
         else if (button.getParent() == fpPlayerTwoCards)
         {
@@ -196,25 +232,40 @@ public class GameController {
             } else if (mouseEvent.getButton() == MouseButton.SECONDARY){
                 GameUtils.discard(button, fpPlayerTwoCards, fpPlayerTwoPlayedCard, lbP2Gold);
             }
-            gameMove.setPlayerName("P2");
-            gameMove.setPlayerHandState((fpPlayerTwoCards
-                    .getChildren())
-                    .stream()
-                    .map(x -> (Button) x)
-                    .map(b -> (Card) b.getUserData())
-                    .toArray(Card[]::new));
+            if (GameApplication.activeUserRole == UserRole.SINGLEPLAYER){
+                gameMove.setPlayerName("P2");
+                gameMove.setPlayerHandState((fpPlayerTwoCards
+                        .getChildren())
+                        .stream()
+                        .map(x -> (Button) x)
+                        .map(b -> (Card) b.getUserData())
+                        .toArray(Card[]::new));
+            }
         }
-        gameMove.setCard((Card) button.getUserData());
-        gameMove.setDateTime(LocalDateTime.now());
+        if (GameApplication.activeUserRole == UserRole.SINGLEPLAYER){
+            gameMove.setCard((Card) button.getUserData());
+            gameMove.setDateTime(LocalDateTime.now());
+            List<Label> scores = Stream.concat(p1Scores.stream(), p2Scores.stream()).toList();
+            gameMove.setScoreBoardState(scores.stream().map(Label::getText).toArray(String[]::new));
+            GameMoveUtils.saveGameMove(gameMove);
+            XmlUtils.saveGameMove(gameMove);
+        }
 
-        List<Label> scores = Stream.concat(p1Scores.stream(), p2Scores.stream()).toList();
-        gameMove.setScoreBoardState(scores.stream().map(Label::getText).toArray(String[]::new));
-        GameMoveUtils.saveGameMove(gameMove);
-        XmlUtils.saveGameMove(gameMove);
-        checkPlayedCards();
+        if (GameApplication.activeUserRole == UserRole.SERVER){
+            checkPlayedCards();
+            GameState gameStateSnapshot = GameStateUtils.createGameStateSnapshot(theGameController);
+            NetworkingUtils.sendGameStateToClient(gameStateSnapshot);
+        }
+        else if (GameApplication.activeUserRole == UserRole.SINGLEPLAYER){
+            checkPlayedCards();
+        }
+        else if (GameApplication.activeUserRole == UserRole.CLIENT){
+            GameState gameStateSnapshot = GameStateUtils.createGameStateSnapshot(theGameController);
+            NetworkingUtils.sendGameStateToServer(gameStateSnapshot);
+        }
     }
 
-    private void checkPlayedCards() {
+    public void checkPlayedCards() {
         if (!fpPlayerOnePlayedCard.getChildren().isEmpty() &&
         !fpPlayerTwoPlayedCard.getChildren().isEmpty())
         {
@@ -226,6 +277,7 @@ public class GameController {
             fpPlayerTwoPlayedCard.getChildren().clear();
 
             checkRemainingCards();
+
         }
     }
 
@@ -242,26 +294,23 @@ public class GameController {
         }
     }
 
-    private void setScore(Label scoreLabel, int score) {
-        int currResult = Integer.parseInt(scoreLabel.getText());
-        scoreLabel.setText(String.valueOf(currResult + score));
-    }
 
 
-    private void checkRemainingCards() {
+    public void checkRemainingCards() {
         if (fpPlayerOneCards.getChildren().isEmpty() && fpPlayerTwoCards.getChildren().isEmpty())
         {
             List<Label> scores = Stream.concat(p1Scores.stream(), p2Scores.stream()).toList();
-            GameMove lastGameMove = new GameMove(){{
-                setScoreBoardState(scores.stream().map(Label::getText).toArray(String[]::new));
-                setDateTime(LocalDateTime.now());
-            }};
-            XmlUtils.saveGameMove(lastGameMove);
+            if (GameApplication.activeUserRole == UserRole.SINGLEPLAYER){
+                GameMove lastGameMove = new GameMove(){{
+                    setScoreBoardState(scores.stream().map(Label::getText).toArray(String[]::new));
+                    setDateTime(LocalDateTime.now());
+                }};
+                XmlUtils.saveGameMove(lastGameMove);
+            }
 
             GameUtils.concludeGame(p1Scores, lbP1Total, p2Scores, lbP2Total, lbWinner);
         } else
         {
-            //TODO: za multiplayer -> provjerit player rolu (client: slati serveru, server: slati klijentu, default: swapDecks)
             GameUtils.swapDecks(fpPlayerOneCards, fpPlayerTwoCards);
         }
     }

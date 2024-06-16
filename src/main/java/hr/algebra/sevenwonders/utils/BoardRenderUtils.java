@@ -42,6 +42,8 @@ public class BoardRenderUtils {
             gameController.fpPlayerTwoPlayedCard.getChildren().addAll(playerTwoPlayedCard);
         }
 
+        gameController.lbWinner.setText(gameState.getWinnerString());
+
         renderScoreBoardFromGameState(gameController, gameState);
 
     }

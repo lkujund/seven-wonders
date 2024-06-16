@@ -4,9 +4,7 @@ import hr.algebra.sevenwonders.controller.GameController;
 import hr.algebra.sevenwonders.model.ConfigurationKey;
 import hr.algebra.sevenwonders.model.GameState;
 import hr.algebra.sevenwonders.model.UserRole;
-import hr.algebra.sevenwonders.utils.BoardRenderUtils;
-import hr.algebra.sevenwonders.utils.ConfigurationReader;
-import hr.algebra.sevenwonders.utils.GameUtils;
+import hr.algebra.sevenwonders.utils.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +21,7 @@ import java.time.LocalDateTime;
 public class GameApplication extends Application {
 
     private static Scene mainScene;
-    public static UserRole activeUserRole;
+    public static UserRole activeUserRole = UserRole.SINGLEPLAYER;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -82,11 +80,16 @@ public class GameApplication extends Application {
 
     private static void processSerializableClient(Socket clientSocket) {
         try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());) {
+             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream())) {
             GameState gameState = (GameState) ois.readObject();
             BoardRenderUtils.drawBoardFromGameState(gameState, GameController.theGameController);
+            GameController.theGameController.checkPlayedCards();
             System.out.println("Game state received at " + LocalDateTime.now());
             oos.writeObject("Confirmation");
+            if (GameApplication.activeUserRole == UserRole.SERVER){
+                GameState gameStateSnapshot = GameStateUtils.createGameStateSnapshot(GameController.theGameController);
+                NetworkingUtils.sendGameStateToClient(gameStateSnapshot);
+            }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
