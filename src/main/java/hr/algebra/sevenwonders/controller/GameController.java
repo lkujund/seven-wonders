@@ -1,8 +1,11 @@
 package hr.algebra.sevenwonders.controller;
 
+import hr.algebra.sevenwonders.GameApplication;
+import hr.algebra.sevenwonders.chat.RemoteChatService;
 import hr.algebra.sevenwonders.model.Card;
 import hr.algebra.sevenwonders.model.GameMove;
 import hr.algebra.sevenwonders.model.GameState;
+import hr.algebra.sevenwonders.model.UserRole;
 import hr.algebra.sevenwonders.thread.GetLastGameMoveThread;
 import hr.algebra.sevenwonders.utils.*;
 import javafx.animation.KeyFrame;
@@ -16,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -32,6 +36,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class GameController {
+
+    public static GameController theGameController;
 
     //Board elementi
     @FXML
@@ -93,8 +99,30 @@ public class GameController {
     public TextArea taChatBox;
 
 
+    private RemoteChatService remoteChatService;
+
     public List<Label> p1Scores;
     public List<Label> p2Scores;
+
+    public GameController() {
+        theGameController = GameController.this;
+    }
+
+
+    public void initialize(){
+        if (GameApplication.activeUserRole == UserRole.SERVER) {
+            remoteChatService = RemoteChatUtils.startRmiRemoteChatServer();
+        } else if (GameApplication.activeUserRole == UserRole.CLIENT) {
+            remoteChatService = RemoteChatUtils.startRmiRemoteChatClient();
+        }
+
+        tfMessage.setOnKeyPressed(event -> {
+                    if (event.getCode().equals(KeyCode.ENTER)) {
+                        sendChatMessage();
+                    }
+                }
+        );
+    }
 
     public void startGame() {
 
@@ -135,7 +163,7 @@ public class GameController {
 
 
     public void sendChatMessage() {
-        ChatUtils.sendMessage(tfMessage, taChatBox);
+        ChatUtils.sendMessage(tfMessage, taChatBox, remoteChatService);
     }
 
 

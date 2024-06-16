@@ -90,6 +90,10 @@ public class XmlUtils {
     }
 
     private static void saveDocument(Document document, String fileName) throws TransformerException {
+        File file = new File(fileName);
+        if (!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+        }
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");

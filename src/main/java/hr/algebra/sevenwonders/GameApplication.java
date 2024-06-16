@@ -1,6 +1,12 @@
 package hr.algebra.sevenwonders;
 
+import hr.algebra.sevenwonders.controller.GameController;
+import hr.algebra.sevenwonders.model.ConfigurationKey;
+import hr.algebra.sevenwonders.model.GameState;
 import hr.algebra.sevenwonders.model.UserRole;
+import hr.algebra.sevenwonders.utils.BoardRenderUtils;
+import hr.algebra.sevenwonders.utils.ConfigurationReader;
+import hr.algebra.sevenwonders.utils.GameUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDateTime;
 
 public class GameApplication extends Application {
 
@@ -22,7 +29,7 @@ public class GameApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("boardScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1440, 900);
-        stage.setTitle("Seven Wonders - Luka Kujundzic");
+        stage.setTitle("Seven Wonders - Luka Kujundzic - " + (activeUserRole != null ? activeUserRole.name() : "SINGLEPLAYER"));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -35,20 +42,20 @@ public class GameApplication extends Application {
 
     private static void acceptRequestsOnServer() {
 
-//        Integer serverPort = ConfigurationReader.readIntegerConfigurationValue(ConfigurationKey.SERVER_PORT);
-//
-//        try (ServerSocket serverSocket =
-//                     new ServerSocket(serverPort)) {
-//            System.err.println("Server listening on port: " + serverSocket.getLocalPort());
-//
-//            while (true) {
-//                Socket clientSocket = serverSocket.accept();
-//                System.err.println("Client connected from port: " + clientSocket.getPort());
-//                Platform.runLater(() -> processSerializableClient(clientSocket));
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        Integer serverPort = ConfigurationReader.readIntegerConfigurationValue(ConfigurationKey.SERVER_PORT);
+
+        try (ServerSocket serverSocket =
+                     new ServerSocket(serverPort)) {
+            System.err.println("Server listening on port: " + serverSocket.getLocalPort());
+
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.err.println("Client connected from port: " + clientSocket.getPort());
+                Platform.runLater(() -> processSerializableClient(clientSocket));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void startClient() {
@@ -57,32 +64,32 @@ public class GameApplication extends Application {
 
     private static void acceptRequestsOnClient() {
 
-//        Integer clientPort = ConfigurationReader.readIntegerConfigurationValue(ConfigurationKey.CLIENT_PORT);
-//
-//        try (ServerSocket serverSocket =
-//                     new ServerSocket(clientPort)) {
-//            System.err.println("Server listening on port: " + serverSocket.getLocalPort());
-//
-//            while (true) {
-//                Socket clientSocket = serverSocket.accept();
-//                System.err.println("Client connected from port: " + clientSocket.getPort());
-//                Platform.runLater(() -> processSerializableClient(clientSocket));
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        Integer clientPort = ConfigurationReader.readIntegerConfigurationValue(ConfigurationKey.CLIENT_PORT);
+
+        try (ServerSocket serverSocket =
+                     new ServerSocket(clientPort)) {
+            System.err.println("Server listening on port: " + serverSocket.getLocalPort());
+
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                System.err.println("Client connected from port: " + clientSocket.getPort());
+                Platform.runLater(() -> processSerializableClient(clientSocket));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void processSerializableClient(Socket clientSocket) {
-//        try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-//             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());) {
-//            GameState gameState = (GameState) ois.readObject();
-//            HelloController.loadGameState(gameState);
-//            System.out.println("Game state received");
-//            oos.writeObject("Confirmation");
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
+             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());) {
+            GameState gameState = (GameState) ois.readObject();
+            BoardRenderUtils.drawBoardFromGameState(gameState, GameController.theGameController);
+            System.out.println("Game state received at " + LocalDateTime.now());
+            oos.writeObject("Confirmation");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     public static Scene getMainScene(){
         return mainScene;
